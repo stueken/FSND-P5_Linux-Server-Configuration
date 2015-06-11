@@ -1,5 +1,7 @@
 # FSND-P5_Linux-Server-Configuration
 
+Baseline installation of a Linux distribution on a virtual machine to host a flask web application, includes installing updates, securing it from a number of attack vectors and installing/configuring web and database servers.
+
 ## Step by Step Walkthrough
 ### 1 & 2 - Create Development Environment: Launch Virtual Machine and SSH into the server
     https://www.udacity.com/account#!/development_environment
