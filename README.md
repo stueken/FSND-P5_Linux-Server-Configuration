@@ -1,3 +1,5 @@
+# FORMATTING IN PROGRESS :) 
+
 # FSND-P5_Linux-Server-Configuration
 
 Baseline installation of a Linux distribution on a virtual machine to host a flask web application, includes installing updates, securing it from a number of attack vectors and installing/configuring web and database servers.
