@@ -15,7 +15,7 @@ Source: [Udacity][3]
 4. Set file rights (only owner can write and read.):  
   `$ chmod 600 ~/.ssh/udacity_key.rsa`
 5. SSH into the instance:  
-  `$ ssh -i ~/.ssh/udacity_key.rsa root@**_PUPLIC-IP-Address_**`
+  `<pre>$ ssh -i ~/.ssh/udacity_key.rsa root@<b>**_PUPLIC-IP-Address_**</b></pre>`
 
 ### 3 & 4 - User Management: Create a new user and give user the permission to sudo
 Source: [DigitalOcean][4]  
@@ -27,7 +27,7 @@ Source: [DigitalOcean][4]
     `$ visudo`
   2. Add the following line below `root ALL...`:  
     `**_NEWUSER_** ALL=(ALL:ALL) ALL`
-  3.* List all users (Source: [Ask Ubuntu][5]):    
+  3. *List all users (Source: [Ask Ubuntu][5]):    
     `$ cut -d: -f1 /etc/passwd`
 
 ### 5 - Update and upgrade all currently installed packages
@@ -54,11 +54,11 @@ Source: [Ask Ubuntu][8]
     `$ vim /etc/ssh/sshd_config` 
   2. Change to Port 2200.
   3. Change `PermitRootLogin` from `without-password` to `no`.
-  4.* To get more detailed logging messasges, open `/var/log/auth.log` and change LogLevel from `INFO` to `VERBOSE`. 
+  4. * To get more detailed logging messasges, open `/var/log/auth.log` and change LogLevel from `INFO` to `VERBOSE`. 
   5. Temporalily change `PasswordAuthentication` from `no` to `yes`.
   6. Append `UseDNS no`.
   7. Append `AllowUsers **_NEWUSER_**`.  
-  **Note:** All options at [UNIXhelp][9]
+**Note:** All options on [UNIXhelp][9]
 2. Restart SSH Service:  
   `$ /etc/init.d/ssh restart` or `# service sshd restart` 
 3. Create SSH Keys:  
@@ -73,14 +73,14 @@ Source: [Ask Ubuntu][8]
   4. Open SSHD config:  
     `$ sudo vim /etc/ssh/sshd_config`
   5. Change `PasswordAuthentication` back from `yes` to `no`.
-4.* Get rid of the warning message "sudo: unable to resolve host ..." when sudo is executed:
+4. * Get rid of the warning message `sudo: unable to resolve host ...` when sudo is executed:
 Source: [Ask Ubuntu][11]  
 
   1. Open `$ vim /etc/hostname`.
   2. Copy the hostname.
   3. Append the hostname to the first line:  
     `$ sudo sudonano /etc/hosts`
-5.* Simplify SSH login:  
+5. * Simplify SSH login:  
   1. Logout of the SSH instance:  
     `$ exit`
   2. Open the SSH config file on your local machine:  
@@ -94,7 +94,7 @@ Source: [Ask Ubuntu][11]
     ```
   4. Now, you can login into the server more quickly:  
     `$ ssh **_NEWHOSTNAME_**`
-6.* Handle the message `*** System restart required ***` after login:
+6. * Handle the message `System restart required` after login:
 Source: [Super User][12]  
 
   1. List all packages which cause the reboot:  
