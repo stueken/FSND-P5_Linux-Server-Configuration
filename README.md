@@ -1,5 +1,3 @@
-# FORMATTING IN PROGRESS :) 
-
 # FSND-P5_Linux-Server-Configuration
 
 A Baseline installation of Ubuntu Linux on a virtual machine to host a Flask web application. This includes the installation of updates, securing the system from a number of attack vectors and installing/configuring web and database servers.
@@ -9,26 +7,45 @@ A Baseline installation of Ubuntu Linux on a virtual machine to host a Flask web
 ## Step by Step Walkthrough
 ### 1 & 2 - Create Development Environment: Launch Virtual Machine and SSH into the server
 Source: [Udacity][3]
-1. Create new development environment
-2. Download private keys and write down your public IP address
-3. Move the private key file into the folder ~/.ssh `$ mv ~/Downloads/udacity_key.rsa ~/.ssh/`
-4. Set file rights (only owner can write and read.) `$ chmod 600 ~/.ssh/udacity_key.rsa`
-5. SSH into the instance `$ ssh -i ~/.ssh/udacity_key.rsa root@IP-Address`
+
+1. Create new development environment.
+2. Download private keys and write down your public IP address.
+3. Move the private key file into the folder ~/.ssh:  
+  `$ mv ~/Downloads/udacity_key.rsa ~/.ssh/`
+4. Set file rights (only owner can write and read.):  
+  `$ chmod 600 ~/.ssh/udacity_key.rsa`
+5. SSH into the instance:  
+  `$ ssh -i ~/.ssh/udacity_key.rsa root@IP-Address`
+
 ### 3 & 4 - User Management: Create a new user and give user the permission to sudo
 Source: [DigitalOcean][4]
-1. Create a new user `$ adduser newuser`
+
+1. Create a new user:  
+  `$ adduser newuser`
 2. Give new user the permission to sudo
-  1. Open the sudo configuration `$ visudo`
-  2. Add line below 'root ALL...' `newuser ALL=(ALL:ALL) ALL`
-  3. * To list all users (Source: [Ask Ubuntu]) `$ cut -d: -f1 /etc/passwd`
-### 5 - Update and upgrade all apps
-    http://askubuntu.com/questions/94102/what-is-the-difference-between-apt-get-update-and-upgrade
-    $ sudo apt-get update - to update the list of available packages and their versions
-    $ sudo sudo apt-get upgrade - to actually install newer vesions of packages you have.
+  1. Open the sudo configuration:  
+    `$ visudo`
+  2. Add line below 'root ALL...':  
+    `newuser ALL=(ALL:ALL) ALL`
+  3. * List all users (Source: [Ask Ubuntu][5]):  
+    `$ cut -d: -f1 /etc/passwd`
+
+### 5 - Update and upgrade all currently installed packages
+Source: [Ask Ubuntu][6]
+    
+1. Update the list of available packages and their versions:  
+  `$ sudo apt-get update`
+2. Install newer vesions of packages you have:  
+  `$ sudo sudo apt-get upgrade`
+
 #### 5** - Include cron scripts to automatically manage package updates
-    https://help.ubuntu.com/community/AutomaticSecurityUpdates
-    $ sudo apt-get install unattended-upgrades - to install the unattended-upgrades package
-    $ sudo dpkg-reconfigure -plow unattended-upgrades - to enable the unattended-upgrades package
+Source: [Ubuntu documentation][7]
+
+1. Install the unattended-upgrades package:  
+  `$ sudo apt-get install unattended-upgrades`
+2. Enable the unattended-upgrades package:  
+  `$ sudo dpkg-reconfigure -plow unattended-upgrades`
+
 ### 6 - Configure SSH access
     http://askubuntu.com/questions/16650/create-a-new-ssh-user-on-ubuntu-server
     Change ssh config file
@@ -70,3 +87,6 @@ Source: [DigitalOcean][4]
 
 [1]: https://de.wikipedia.org/wiki/Flask "Wikipedia entry to Flask"
 [2]: https://github.com/stueken/FSND-P3_Music-Catalog-Web-App "GitHub repository of an item catalog web app"
+[3]: https://www.udacity.com/account#!/development_environment "Instructions for SSH access to the instance"
+[4]: https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps "How To Add and Delete Users on an Ubuntu 14.04 VPS"
+[5]: http://askubuntu.com/questions/410244/a-command-to-list-all-users-and-how-to-add-delete-modify-users "How to list, add, delete and modify users"
