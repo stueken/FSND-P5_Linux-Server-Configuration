@@ -2,7 +2,7 @@
 
 A Baseline installation of Ubuntu Linux on a virtual machine to host a Flask web application. This includes the installation of updates, securing the system from a number of attack vectors and installing/configuring web and database servers.
 
-**Note:** The below step-by-step walkthrough is the solution to project 5 of the [Udacity Full Stack Web Developer Nanodegree][1] and deploys the [solution of project 3][2] on the virtual machine.
+**Note:** The below step-by-step walkthrough is the solution to project 5 of the [Udacity Full Stack Web Developer Nanodegree][1] and deploys the [solution of project 3][2] on the virtual machine. The solution is graded with "Exceeds Specifications".
 
 ## Step by Step Walkthrough
 ### 1 & 2 - Create Development Environment: Launch Virtual Machine and SSH into the server
@@ -15,18 +15,18 @@ Source: [Udacity][3]
 4. Set file rights (only owner can write and read.):  
   `$ chmod 600 ~/.ssh/udacity_key.rsa`
 5. SSH into the instance:  
-  `<pre>$ ssh -i ~/.ssh/udacity_key.rsa root@<b>**_PUPLIC-IP-Address_**</b></pre>`
+  `<pre>$ ssh -i ~/.ssh/udacity_key.rsa root@PUPLIC-IP-ADDRESS`
 
 ### 3 & 4 - User Management: Create a new user and give user the permission to sudo
 Source: [DigitalOcean][4]  
 
 1. Create a new user:  
-  `$ adduser **_NEWUSER_**`
+  `$ adduser NEWUSER`
 2. Give new user the permission to sudo
   1. Open the sudo configuration:  
     `$ visudo`
   2. Add the following line below `root ALL...`:  
-    `**_NEWUSER_** ALL=(ALL:ALL) ALL`
+    `NEWUSER ALL=(ALL:ALL) ALL`
   3. *List all users (Source: [Ask Ubuntu][5]):    
     `$ cut -d: -f1 /etc/passwd`
 
@@ -57,7 +57,7 @@ Source: [Ask Ubuntu][8]
   4. * To get more detailed logging messasges, open `/var/log/auth.log` and change LogLevel from `INFO` to `VERBOSE`. 
   5. Temporalily change `PasswordAuthentication` from `no` to `yes`.
   6. Append `UseDNS no`.
-  7. Append `AllowUsers **_NEWUSER_**`.  
+  7. Append `AllowUsers NEWUSER`.  
 **Note:** All options on [UNIXhelp][9]
 2. Restart SSH Service:  
   `$ /etc/init.d/ssh restart` or `# service sshd restart` 
@@ -69,11 +69,11 @@ Source: [Ask Ubuntu][8]
   2. Copy the public id to the server:  
     `$ ssh-copy-id username@remote_host -p**_PORTNUMBER_**`
   3. Login with the new user:  
-    `$ ssh -v grader@**_PUBLIC-IP-ADDRESS_** -p2200`
+    `$ ssh -v grader@PUBLIC-IP-ADDRESS -p2200`
   4. Open SSHD config:  
     `$ sudo vim /etc/ssh/sshd_config`
   5. Change `PasswordAuthentication` back from `yes` to `no`.
-4. * Get rid of the warning message `sudo: unable to resolve host ...` when sudo is executed:
+4. *Get rid of the warning message `sudo: unable to resolve host ...` when sudo is executed:  
 Source: [Ask Ubuntu][11]  
 
   1. Open `$ vim /etc/hostname`.
@@ -87,14 +87,14 @@ Source: [Ask Ubuntu][11]
     `$ sudo vim .ssh/config`
   3. Add the following lines:  
     ```
-    Host **_NEWHOSTNAME_**
-      HostName **_PUPLIC-IP-ADDRESS_**
+    Host NEWHOSTNAME
+      HostName PUPLIC-IP-ADDRESS
       Port 2200
-      User **_NEWUSER_**
+      User NEWUSER
     ```
   4. Now, you can login into the server more quickly:  
-    `$ ssh **_NEWHOSTNAME_**`
-6. * Handle the message `System restart required` after login:
+    `$ ssh NEWHOSTNAME`
+6. *Handle the message `System restart required` after login:  
 Source: [Super User][12]  
 
   1. List all packages which cause the reboot:  
