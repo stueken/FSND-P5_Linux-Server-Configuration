@@ -2,7 +2,9 @@
 
 # FSND-P5_Linux-Server-Configuration
 
-Baseline installation of a Linux distribution on a virtual machine to host a flask web application, includes installing updates, securing it from a number of attack vectors and installing/configuring web and database servers.
+A Baseline installation of a Linux distribution on a virtual machine to host a Flask web application. This includes the installation of updates, securing the system from a number of attack vectors and installing/configuring web and database servers.
+
+**Note:** The below step-by-step walkthrough is the solution to project 5 of the [Udacity Full Stack Web Developer Nanodegree][1] and deploys the [solution of project 3][2] on the virtual machine.
 
 ## Step by Step Walkthrough
 ### 1 & 2 - Create Development Environment: Launch Virtual Machine and SSH into the server
@@ -254,3 +256,6 @@ Baseline installation of a Linux distribution on a virtual machine to host a fla
         $ sudo apt-get install python-pip build-essential python-dev
         $ sudo pip install Glances
     $ sudo pip install PySensors
+
+[1]: https://de.wikipedia.org/wiki/Flask "Wikipedia entry to Flask"
+[2]: https://github.com/stueken/FSND-P3_Music-Catalog-Web-App "GitHub repository of an item catalog web app"
