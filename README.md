@@ -183,18 +183,29 @@ Source: [Udacity][17]
     `$ sudo a2enconf fqdn`
 
 ### 11 - Install git, clone and setup your Catalog App project
+As this is by far the biggest project task, it is split in several parts.
 #### 11.1 - Install and configure git
-        https://help.github.com/articles/set-up-git/#platform-linux
-        $ sudo apt-get install git - to install git
-        $ git config --global user.name "YOUR NAME" - to set your name, e.g. for the commits
-        $ git config --global user.email "YOUR EMAIL ADDRESS" - to connect your commits to your account
-    11b - Setup for deploying a Flask Application on Ubuntu VPS
-        https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
-        $ sudo apt-get install libapache2-mod-wsgi python-dev - to extend Python with additional packages that enable Apache to serve Flask applications
-        *$ sudo a2enmod wsgi - to enable mod_wsgi (if not already enabled)
-    11c - Create a Flask app
-        $ cd /var/www - to move to the www directory
-        $ sudo mkdir catalog - to create a directory for the app, e.g. catalog
+Source: [GitHub][19]
+        
+1. Install Git:  
+  `$ sudo apt-get install git`
+2. Set your name, e.g. for the commits:  
+  `$ git config --global user.name "YOUR NAME"`
+3. Set up your email address to connect your commits to your account:  
+  `$ git config --global user.email "YOUR EMAIL ADDRESS"`
+
+#### 11.2 - Setup for deploying a Flask Application on Ubuntu VPS
+Source: [DigitalOcean][20]
+
+1. Extend Python with additional packages that enable Apache to serve Flask applications:  
+  `$ sudo apt-get install libapache2-mod-wsgi python-dev`
+2. Enable mod_wsgi (if not already enabled):  
+  `$ sudo a2enmod wsgi`
+3. Create a Flask app:  
+  1. Move to the www directory:  
+    `$ cd /var/www`
+  2. Create a directory for the app, e.g. catalog:  
+    `$ sudo mkdir catalog`
         $ cd catalog AND $ sudo mkdir catalog
         $ cd catalog AND $ sudo mkdir static templates
         $ sudo nano __init__.py - to create the file that will contain the flask application logic
