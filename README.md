@@ -5,6 +5,10 @@ A Baseline installation of Ubuntu Linux on a virtual machine to host a Flask web
 **Note:** The below step-by-step walkthrough is the solution to project 5 of the [Udacity Full Stack Web Developer Nanodegree][1] and deploys the [solution of project 3][2] on the virtual machine. The solution is graded with "Exceeds Specifications".
 
 ## Step by Step Walkthrough
+The steps below are the documented steps I executed to get to the solution. This is surely far from perfect and I'm thankful for any feedback, reported errors, advice, etc. I get on this. 
+
+The parts which are not necessarily needed are marked with a \*, the ones which need to be done for extra credit (suceeds expectations) are marked with \*\*. As text editor I used vim, but you can surely use another one like nano.
+
 ### 1 & 2 - Create Development Environment: Launch Virtual Machine and SSH into the server
 Source: [Udacity][3]  
 
@@ -204,88 +208,187 @@ Source: [DigitalOcean][20]
 3. Create a Flask app:  
   1. Move to the www directory:  
     `$ cd /var/www`
-  2. Create a directory for the app, e.g. catalog:  
-    `$ sudo mkdir catalog`
-        $ cd catalog AND $ sudo mkdir catalog
-        $ cd catalog AND $ sudo mkdir static templates
-        $ sudo nano __init__.py - to create the file that will contain the flask application logic
-        Paste in the following code:
-            from flask import Flask
-            app = Flask(__name__)
-            @app.route("/")
-            def hello():
-                return "Veni vidi vici!!"
-            if __name__ == "__main__":
-                app.run()
-    11d - Install Flask
-        $ sudo apt-get install python-pip - to install pip installer
-        $ sudo pip install virtualenv - to install virtualenv
-        $ sudo virtualenv venv - set virtual environment to name venv
-        Enable all permissions for the new virtual environment (no sudo should be used within):
-            http://stackoverflow.com/questions/14695278/python-packages-not-installing-in-virtualenv-using-pip
-            $ sudo chmod -R 777 venv
-        $ source venv/bin/activate - to activate the virtual environment
-        $ pip install Flask - install Flask inside the virtual environment
-        $ python __init__.py - to run the app
-        $ deactivate - to deactivate the environment
-    11e - Configure and Enable a New Virtual Host
-        $ sudo nano /etc/apache2/sites-available/catalog.conf - to create a virtual host config file
-        Paste in the following lines of code and change names and address regarding your application:
-            <VirtualHost *:80>
-                ServerName 52.25.0.41
-                ServerAdmin admin@52.25.0.41
-                WSGIScriptAlias / /var/www/catalog/catalog.wsgi
-                <Directory /var/www/catalog/catalog/>
-                    Order allow,deny
-                    Allow from all
-                </Directory>
-                Alias /static /var/www/catalog/catalog/static
-                <Directory /var/www/catalog/catalog/static/>
-                    Order allow,deny
-                    Allow from all
-                </Directory>
-                ErrorLog ${APACHE_LOG_DIR}/error.log
-                LogLevel warn
-                CustomLog ${APACHE_LOG_DIR}/access.log combined
-            </VirtualHost>
-        $ sudo a2ensite catalog - to enable the virtual host
-    11f - Create the .wsgi File and Restart Apache
-        $ cd /var/www/catalog AND $ sudo nano catalog.wsgi - to create wsgi file
-        Paste in the following lines of code
-            #!/usr/bin/python
-            import sys
-            import logging
-            logging.basicConfig(stream=sys.stderr)
-            sys.path.insert(0,"/var/www/catalog/")
-            from catalog import app as application
-            application.secret_key = 'Add your secret key'
-        $ sudo service apache2 restart
-        !!! Logging
-            https://docs.python.org/2.4/lib/minimal-example.html
-            https://docs.python.org/2/howto/logging.html
-            http://docs.python-guide.org/en/latest/writing/logging/
-            Permissions for log files
-                http://stackoverflow.com/questions/18547855/permission-denied-when-writing-log-file
-    11g - Clone GitHub repository and make it web inaccessible
-        $ git clone https://github.com/stueken/FSND-P3_Music-Catalog-Web-App.git - Clone repository on GitHub
-        move all content of created FSND-P3_Music-Catalog-Web-App directory to  /var/www/catalog/catalog/ directory and delete the leftover empty directory
-        http://stackoverflow.com/questions/6142437/make-git-directory-web-inaccessible
-        change to /var/www/catalog/ directory
-        $ sudo nano .htaccess - create .htaccess files
-        Paste in the following:
-            RedirectMatch 404 /\.git
-    11h - Install needed modules & packages
-        $ source venv/bin/activate
-        $ pip install httplib2 - to install httplib2 module in venv
-        $ pip install requests - to install requests module in venv
-        $ *sudo pip install flask-seasurf - to install flask.ext.seasurf (only seems to work when installed globally)
-        $ sudo pip install --upgrade oauth2client - to install oauth2client.client (only seems to work when installed globally)
-        $ sudo pip install sqlalchemy (only seems to work when installed globally)
-    $ sudo apt-get install python-psycopg2 - to install the Python PostgreSQL adapter psycopg
+  2. Setup a directory for the app, e.g. catalog:  
+    1. `$ sudo mkdir catalog`  
+    2. `$ cd catalog` and `$ sudo mkdir catalog`  
+    3. `$ cd catalog` and `$ sudo mkdir static templates`  
+    4. Create the file that will contain the flask application logic:  
+      `$ sudo nano __init__.py`
+    5. Paste in the following code:  
+    ```python  
+      from flask import Flask  
+      app = Flask(__name__)  
+      @app.route("/")  
+      def hello():  
+        return "Veni vidi vici!!"  
+      if __name__ == "__main__":  
+        app.run()  
+    ```  
+4. Install Flask
+  1. Install pip installer:  
+    `$ sudo apt-get install python-pip` 
+  2. Install virtualenv:  
+    `$ sudo pip install virtualenv`
+  3. Set virtual environment to name 'venv':  
+    `$ sudo virtualenv venv`
+  4. Enable all permissions for the new virtual environment (no sudo should be used within):  
+    Source: [Stackoverflow][21]              
+    `$ sudo chmod -R 777 venv`
+  5. Activate the virtual environment:  
+    `$ source venv/bin/activate`
+  6. Install Flask inside the virtual environment:  
+    `$ pip install Flask`
+  7. Run the app:  
+    `$ python __init__.py`
+  8. Deactivate the environment:  
+    `$ deactivate`
+5. Configure and Enable a New Virtual Host#
+  1. Create a virtual host config file  
+    `$ sudo nano /etc/apache2/sites-available/catalog.conf`
+  2. Paste in the following lines of code and change names and addresses regarding your application:  
+  ```
+    <VirtualHost *:80>
+        ServerName PUBLIC-IP-ADDRESS
+        ServerAdmin admin@PUBLIC-IP-ADDRESS
+        WSGIScriptAlias / /var/www/catalog/catalog.wsgi
+        <Directory /var/www/catalog/catalog/>
+            Order allow,deny
+            Allow from all
+        </Directory>
+        Alias /static /var/www/catalog/catalog/static
+        <Directory /var/www/catalog/catalog/static/>
+            Order allow,deny
+            Allow from all
+        </Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
+  ```
+  3. Enable the virtual host:  
+    `$ sudo a2ensite catalog`
+6. Create the .wsgi File and Restart Apache
+  1. Create wsgi file:  
+    `$ cd /var/www/catalog` and `$ sudo vim catalog.wsgi`
+  2. Paste in the following lines of code:  
+  ```
+    #!/usr/bin/python
+    import sys
+    import logging
+    logging.basicConfig(stream=sys.stderr)
+    sys.path.insert(0,"/var/www/catalog/")
+    
+    from catalog import app as application
+    application.secret_key = 'Add your secret key'
+  ```
+  7. Restart Apache:  
+    `$ sudo service apache2 restart`
 
+#### 11.3 - Clone GitHub repository and make it web inaccessible
+1. Clone project 3 solution repository on GitHub:  
+  `$ git clone https://github.com/stueken/FSND-P3_Music-Catalog-Web-App.git`
+2. Move all content of created FSND-P3_Music-Catalog-Web-App directory to `/var/www/catalog/catalog/`-directory and delete the leftover empty directory.
+3. Make the GitHub repository inaccessible:  
+  Source: [Stackoverflow][22]
+  1. Create and open .htaccess file:  
+    `$ cd /var/www/catalog/` and `$ sudo vim .htaccess` 
+  2. Paste in the following:  
+    `RedirectMatch 404 /\.git`
 
+#### 11.4 - Install needed modules & packages
+1. Activate virtual environment:  
+  `$ source venv/bin/activate`
+2. Install httplib2 module in venv:  
+  `$ pip install httplib2`
+3. Install requests module in venv:  
+  `$ pip install requests`
+4. *Install flask.ext.seasurf (only seems to work when installed globally):  
+  `$ *sudo pip install flask-seasurf`
+5. Install oauth2client.client:  
+  `$ sudo pip install --upgrade oauth2client`
+6. Install SQLAlchemy:  
+  `$ sudo pip install sqlalchemy`
+7. Install the Python PostgreSQL adapter psycopg:  
+  `$ sudo apt-get install python-psycopg2`
 
----
+### 10 - Install and configure PostgreSQL
+Source: [DigitalOcean][23] (alternatively, nice short guide on [Kill The Yak][24] as well)  
+
+1. Install PostgreSQL:  
+  `$ sudo apt-get install postgresql postgresql-contrib`
+2. Check that no remote connections are allowed (default):  
+  `$ sudo vim /etc/postgresql/9.3/main/pg_hba.conf`
+3. Open the database setup file:  
+  `$ sudo vim database_setup.py`
+4. Change the line starting with "engine" to (fill in a password):  
+  ```python engine = create_engine('postgresql://catalog:PW-FOR-DB@localhost/catalog')```  
+5. Change the same line in application.py respectively
+6. Rename application.py:  
+  `$ mv application.py __init__.py`
+7. Create needed linux user for psql:  
+  `$ sudo adduser catalog` (choose a password)
+8. Change to default user postgres:  
+  `$ sudo su - postgre`
+9. Connect to the system:  
+  `$ psql`
+10. Add postgre user with password:  
+  Sources: [Trackets Blog][25] and [Super User][26]
+  1. Create user with LOGIN role and set a password:  
+    `# CREATE USER catalog WITH PASSWORD 'PW-FOR-DB';` (# stands for the command prompt in psql)
+  2. Allow the user to create database tables:  
+    `# ALTER USER catalog CREATEDB;`
+  3. *List current roles and their attributes:
+    `# \du`
+11. Create database:  
+  `# CREATE DATABASE catalog WITH OWNER catalog;`
+12. Connect to the database catalog
+  `# \c catalog` 
+13. Revoke all rights:  
+  `# REVOKE ALL ON SCHEMA public FROM public;`
+14. Grant only access to the catalog role:  
+  `# GRANT ALL ON SCHEMA public TO catalog;`
+15. Exit out of PostgreSQl and the postgres user:  
+  `# \q`, then `$ exit` 
+16. Create postgreSQL database schema:  
+  $ python database_setup.py
+
+#### 11.5 - Run application 
+1. Restart Apache:  
+  `$ sudo service apache2 restart`
+2. Open a browser and put in your public ip-address as url, e.g. 52.25.0.41 - if everything works, the application should come up
+3. *If getting an internal server error, check the Apache error files:  
+  Source: [A2 Hosting][27]  
+  1. View the last 20 lines in the error log: 
+    `$ sudo tail -20 /var/log/apache2/error.log`
+  2. *If a file like 'g_client_secrets.json' couldn't been found:  
+    Source: [Stackoverflow][28]  
+
+#### 11.6 - Get OAuth-Logins Working
+  Source: [Udacity][29] and [Apache][30]  
+  
+1. Open http://www.hcidata.info/host2ip.cgi and receive the Host name for your public IP-address, e.g. for 52.25.0.41, its ec2-52-25-0-41.us-west-2.compute.amazonaws.com
+2. Open the Apache configuration files for the web app:
+  `$ sudo vim /etc/apache2/sites-available/catalog.conf`
+3. Paste in the following line below ServerAdmin:  
+  `ServerAlias HOSTNAME`, e.g. ec2-52-25-0-41.us-west-2.compute.amazonaws.com
+4. Enable the virtual host:  
+  `$ sudo a2ensite catalog`
+5. To get the Google+ authorization working:  
+  1. Go to the project on the Developer Console: https://console.developers.google.com/project
+  2. Navigate to APIs & auth > Credentials > Edit Settings
+  3. add your host name and public IP-address to your Authorized JavaScript origins and your host name + oauth2callback to Authorized redirect URIs, e.g. http://ec2-52-25-0-41.us-west-2.compute.amazonaws.com/oauth2callback
+6. To get the Facebook authorization working:
+  1. Go on the Facebook Developers Site to My Apps https://developers.facebook.com/apps/
+  2. Click on your App, go to Settings and fill in your public IP-Address including prefixed hhtp:// in the Site URL field
+  3. To leave the development mode, so others can login as well, also fill in a contact email address in the respective field, "Save Changes", click on 'Status & Review'
+
+#### 11.7** - Install Monitor application Glances
+Sources: [Glances][31] and [Web Host Bug][32]
+
+1. `$ sudo apt-get install python-pip build-essential python-dev`
+2. `$ sudo pip install Glances`
+3. `$ sudo pip install PySensors`
+
 [1]: https://de.wikipedia.org/wiki/Flask "Wikipedia entry to Flask"
 [2]: https://github.com/stueken/FSND-P3_Music-Catalog-Web-App "GitHub repository of an item catalog web app"
 [3]: https://www.udacity.com/account#!/development_environment "Instructions for SSH access to the instance"
@@ -304,3 +407,17 @@ Source: [DigitalOcean][20]
 [16]: https://help.ubuntu.com/community/UbuntuTime#Using_the_Command_Line_.28terminal.29 "Ubuntu Time Management"
 [17]: http://blog.udacity.com/2015/03/step-by-step-guide-install-lamp-linux-apache-mysql-python-ubuntu.html "A Step by Step Guide to Install LAMP (Linux, Apache, MySQL, Python) on Ubuntu"
 [18]: http://askubuntu.com/questions/256013/could-not-reliably-determine-the-servers-fully-qualified-domain-name "Could not reliably determine the server's fully qualified domain name?"
+[19]: https://help.github.com/articles/set-up-git/#platform-linux "Set Up Git for Linux"
+[20]: https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps "How To Deploy a Flask Application on an Ubuntu VPS"
+[21]: http://stackoverflow.com/questions/14695278/python-packages-not-installing-in-virtualenv-using-pip "python packages not installing in virtualenv using pip"
+[22]: http://stackoverflow.com/questions/6142437/make-git-directory-web-inaccessible "Make .git directory web inaccessible"
+[23]: https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps "How To Secure PostgreSQL on an Ubuntu VPS"
+[24]: http://killtheyak.com/use-postgresql-with-django-flask/ "All I want to do is use PostgreSQL with Flask or Django."
+[25]: http://blog.trackets.com/2013/08/19/postgresql-basics-by-example.html "PostgreSQL Basics by Example"
+[26]: http://superuser.com/questions/769749/creating-user-with-password-or-changing-password-doesnt-work-in-postgresql "Creating user with password or changing password doesn't work in PostgresQL"
+[27]: https://www.a2hosting.com/kb/developer-corner/apache-web-server/viewing-apache-log-files "How to view Apache log files"
+[28]: http://stackoverflow.com/questions/12201928/python-open-method-ioerror-errno-2-no-such-file-or-directory "Python: No such file or directory"
+[29]: http://discussions.udacity.com/t/oauth-provider-callback-uris/20460 "OAuth Provider callback uris"
+[30]: http://httpd.apache.org/docs/2.2/en/vhosts/name-based.html "Name-based Virtual Host Support"
+[31]: http://glances.readthedocs.org/en/latest/glances-doc.html#introduction "Glances Documentation"
+[32]: http://www.webhostbug.com/install-use-glances-ubuntudebian/ "How to install and use Glances on Ubuntu/Debian"
