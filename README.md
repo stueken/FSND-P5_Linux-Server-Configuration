@@ -5,9 +5,9 @@ A Baseline installation of Ubuntu Linux on a virtual machine to host a Flask web
 **Note:** The below step-by-step walkthrough is the solution to project 5 of the [Udacity Full Stack Web Developer Nanodegree][1] and deploys the [solution of project 3][2] on the virtual machine. The solution is graded with "Exceeds Specifications".
 
 ## Step by Step Walkthrough
-The steps below are the documented steps I executed to get to the solution. This is surely far from perfect and I'm thankful for any feedback, reported errors, advice, etc. I get on this. 
+In the detailed guide below I tried to briefly document the steps I executed to get to the projects solution. The numbering and headlines should be congruent to the projects tasks 1-11. Please read through the linked sources to fully understand what is done in those steps. The walkthrough is surely far from perfect and I'm thankful for any feedback, reported errors, advice, etc. I get on this. 
 
-The parts which are not necessarily needed are marked with a \*, the ones which need to be done for extra credit (suceeds expectations) are marked with \*\*. As text editor I used vim, but you can surely use another one like nano.
+The parts which are not necessarily needed are marked with a \*, the ones which only need to be done for extra credit ('suceeds expectations') are marked with \*\*. I used vim as text editor in this guide, but you can surely use another one like nano. Have fun!
 
 ### 1 & 2 - Create Development Environment: Launch Virtual Machine and SSH into the server
 Source: [Udacity][3]  
