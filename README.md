@@ -2,9 +2,11 @@
 
 A baseline installation of Ubuntu Linux on a virtual machine to host a Flask web application. This includes the installation of updates, securing the system from a number of attack vectors and installing/configuring web and database servers.
 
-**Note:** The below step-by-step walkthrough is the solution to project 5 of the [Udacity Full Stack Web Developer Nanodegree][1] and deploys the [solution of project 3][2] on the virtual machine. The solution is graded with "Exceeds Specifications".
 
 ![](http://image-store.slidesharecdn.com/9d8e8d52-fd76-43df-8a22-56eaffcd1163-large.jpeg)
+
+
+**Note:** The below step-by-step walkthrough is the solution to project 5 of the [Udacity Full Stack Web Developer Nanodegree][1] and deploys the [solution of project 3][2] on the virtual machine. The solution is graded with "Exceeds Specifications".
 
 ## Step by Step Walkthrough
 In the detailed guide below I tried to briefly document the steps I executed to get to the projects solution. The numbering and headlines should be congruent to the projects tasks 1-11. Please read through the linked sources to fully understand what is done in those steps. The walkthrough is surely far from perfect and I'm thankful for any feedback, reported errors, advice, etc. I get on this. 
