@@ -144,6 +144,9 @@ Source: [DigitalOcean][15]
       action = %(action_mwl)s  
       under [ssh] change port = 2220  
     ```  
+    
+  **Note:** In the next three steps *iptables* is installed. However, the before installed UFW [is actually a frontend for iptables](https://wiki.ubuntu.com/UncomplicatedFirewall) and is set up already. So configuring *iptables* separately (as I did by just following the guide at DigitalOcean) would be a redundant step. So just install *sendmail* and go on with step 7.
+
 4. Install needed software for our configuration:  
   `$ sudo apt-get install sendmail iptables-persistent` 
 5. Set up a basic firewall only allowing connections from the above ports:  
