@@ -8,6 +8,9 @@ A baseline installation of Ubuntu Linux on a virtual machine to host a Flask web
 
 **Note:** The below step-by-step walkthrough is the solution to project 5 of the [Udacity Full Stack Web Developer Nanodegree][1] and deploys the [solution of project 3][2] on the virtual machine. The solution is graded with "Exceeds Specifications".
 
+## Issues
+* The web application is not reachable under the [AWS-server instance](http://52.25.0.41/) anymore. Should be shifted to my own server.
+
 ## Step by Step Walkthrough
 In the detailed guide below I tried to briefly document the steps I executed to get to the projects solution. The numbering and headlines should be congruent to the projects tasks 1-11. Please read through the linked sources to fully understand what is done in those steps. The walkthrough is surely far from perfect and I'm thankful for any feedback, reported errors, advice, etc. I get on this. 
 
